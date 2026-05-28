@@ -1,4 +1,5 @@
 
+
 from flask import Flask, render_template, request, redirect, url_for, session
 import numpy as np
 import tensorflow as tf
@@ -15,7 +16,7 @@ app.secret_key = "soil_ai_secret_key"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-model_path = os.path.join(BASE_DIR, "model", "soil_model.h5")
+model_path = os.path.join(BASE_DIR, "model", "soil_model007.keras")
 
 model = tf.keras.models.load_model(model_path)
 
@@ -23,7 +24,12 @@ model = tf.keras.models.load_model(model_path)
 # SOIL CLASSES
 # =====================================================
 
-soil_classes = ['alluvial', 'black', 'clay', 'red']
+soil_classes = ['Black', 'clay', 'laterite', 'red','sandy']
+
+# ========================B=============================
+# CROP RECOMMENDATION
+# =====================================================
+
 
 # =====================================================
 # CROP RECOMMENDATION
@@ -31,21 +37,21 @@ soil_classes = ['alluvial', 'black', 'clay', 'red']
 
 crop_map = {
 
-    "alluvial": [
-        "Rice",
+    "black": [
+        "Cotton",
+        "Soybean",
+        "Sorghum",
         "Wheat",
+        "Sunflower",
+        "Linseed",
+        "Millets",
+        "Tobacco",
         "Sugarcane",
-        "Maize",
-        "Pulses",
         "Groundnut",
-        "Watermelon",
-        "Banana",
-        "Mango",
-        "Potato",
-        "Tomato",
-        "Onion",
-        "Mustard",
-        "Jute"
+        "Pulses",
+        "Maize",
+        "Chili",
+        "Tomato"
     ],
 
     "clay": [
@@ -65,6 +71,17 @@ crop_map = {
         "Spinach"
     ],
 
+    "laterite": [
+        "Tea",
+        "Coffee",
+        "Rubber",
+        "Coconut",
+        "Cashew",
+        "Arecanut",
+        "Pepper",
+        "Pineapple"
+    ],
+
     "red": [
         "Groundnut",
         "Millets",
@@ -78,21 +95,15 @@ crop_map = {
         "Chili"
     ],
 
-    "black": [
-        "Cotton",
-        "Soybean",
-        "Sorghum",
-        "Wheat",
-        "Sunflower",
-        "Linseed",
-        "Millets",
-        "Tobacco",
-        "Sugarcane",
-        "Groundnut",
-        "Pulses",
-        "Maize",
-        "Chili",
-        "Tomato"
+    "sandy": [
+        "Watermelon",
+        "Peanut",
+        "Coconut",
+        "Carrot",
+        "Radish",
+        "Cucumber",
+        "Potato",
+        "Sweet Potato"
     ]
 }
 
@@ -100,19 +111,11 @@ crop_map = {
 # SOIL DETAILS DATABASE
 # =====================================================
 
+# =====================================================
+# SOIL DETAILS DATABASE
+# =====================================================
+
 soil_info = {
-
-    "alluvial": {
-        "minerals": "Potash, Lime, Phosphoric Acid",
-        "ph": "6.5 - 8.4",
-        "color": "Light Grey",
-        "fertility": "Very Fertile",
-        "water": "High Water Retention",
-        "fertilizer": "NPK, Compost",
-
-        "description":
-        "Alluvial soil is highly fertile and rich in nutrients. It is mainly found near river areas and is excellent for crops like rice, wheat, sugarcane, banana, and potato."
-    },
 
     "black": {
         "minerals": "Iron, Magnesium, Aluminum",
@@ -138,6 +141,18 @@ soil_info = {
         "Clay soil has high water retention and contains fine mineral particles. It is good for crops like rice, cabbage, broccoli, beans, and spinach."
     },
 
+    "laterite": {
+        "minerals": "Iron Oxide, Aluminum",
+        "ph": "4.5 - 6.0",
+        "color": "Reddish Brown",
+        "fertility": "Low to Medium",
+        "water": "Moderate Retention",
+        "fertilizer": "Organic Manure, Potassium",
+
+        "description":
+        "Laterite soil is rich in iron and aluminum and is commonly found in high rainfall areas. It is suitable for crops like tea, coffee, rubber, coconut, and cashew."
+    },
+
     "red": {
         "minerals": "Iron Oxide, Potash",
         "ph": "6.0 - 7.0",
@@ -148,6 +163,18 @@ soil_info = {
 
         "description":
         "Red soil is rich in iron oxide and supports crops such as groundnut, millets, potato, tobacco, cotton, and pulses."
+    },
+
+    "sandy": {
+        "minerals": "Silica, Quartz",
+        "ph": "5.5 - 7.5",
+        "color": "Light Brown",
+        "fertility": "Low",
+        "water": "Poor Water Retention",
+        "fertilizer": "Compost, Nitrogen",
+
+        "description":
+        "Sandy soil contains large particles with good drainage but low nutrient holding capacity. It is suitable for crops like watermelon, peanuts, carrots, cucumber, and coconut."
     }
 
 }
@@ -304,7 +331,7 @@ def predict():
     # IMAGE PREPROCESSING
     # =====================================================
 
-    img = image.load_img(path, target_size=(128, 128))
+    img = image.load_img(path, target_size=(224, 224,3))
 
     img = image.img_to_array(img)
 
@@ -381,4 +408,4 @@ def not_found(error):
 
 if __name__ == "__main__":
 
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", debug=True) 

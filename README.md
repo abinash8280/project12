@@ -1,147 +1,65 @@
 
-# 🌱 AI Soil Classification System
+# 🌱  Soil Classification System
 
-An AI-powered web application that classifies soil types using Deep Learning and recommends suitable crops based on soil properties.
-
----
-
-# 🚀 Features
-
-✅ Soil image classification using CNN  
-✅ Crop recommendation system  
-✅ Mineral & soil component analysis  
-✅ User login & registration system  
-✅ Modern responsive dashboard UI  
-✅ Flask-based web application  
-✅ Image upload functionality  
+> A Deep Learning-based web application that classifies soil types from images and recommends suitable crops based on soil properties.
 
 ---
 
-# 🧠 Technologies Used
+## 🚀 Project Overview
 
-- Python
-- Flask
-- TensorFlow / Keras
-- HTML
-- CSS
-- JavaScript
-- SQLite
-- NumPy
+The **Soil Classification System** is an intelligent web application built using **Flask and Deep Learning (CNN)**.  
+It analyzes soil images, predicts the soil type, and suggests the most suitable crops for better agricultural productivity.
+
+This project is designed to support **smart agriculture and AI-based farming decisions**.
 
 ---
 
-# 📂 Project Structure
+## ✨ Features
 
-```bash
-SoilDetection/
-│
-├── app.py
-├── requirements.txt
-├── README.md
-├── LICENSE
-├── .gitignore
-│
-├── static/
-├── templates/
-├── model/
-└── uploads/
-```
-
----
-
-# ⚙️ Installation
-
-## Clone Repository
-
-```bash
-git clone https://github.com/abinash8280/SoilDetection.git
-```
-
-## Move to Project Folder
-
-```bash
-cd SoilDetection
-```
-
-## Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-## Run Project
-
-```bash
-python app.py
-```
-
----
-
-# 🌐 Open in Browser
-
-```bash
-http://127.0.0.1:5000
-```
-
----
-
-# 📸 Screenshots
-
-## Home Page
-(Add screenshot here)
-
-## Prediction Dashboard
-(Add screenshot here)
-
-## Result Page
-(Add screenshot here)
-
----
-
-# 🤖 Model Information
-
-- Deep Learning CNN Model
-- Image Classification
-- Trained on Soil Dataset
-- Predicts:
+- 🌾 Soil image classification using Convolutional Neural Network (CNN)
+- 🌱 Crop recommendation based on predicted soil type
+- 🧪 Soil type detection:
   - Black Soil
   - Red Soil
   - Clay Soil
   - Alluvial Soil
+- 📤 Image upload and real-time prediction
+- 🔐 User authentication system (Login/Register)
+- 📊 Responsive and modern dashboard UI
+- 🤖 AI-powered prediction system
 
 ---
 
-# 🌾 Crop Recommendation
+## 🧠 Tech Stack
 
-| Soil Type | Recommended Crops |
-|-----------|-------------------|
-| Black Soil | Cotton, Soybean |
-| Red Soil | Groundnut, Millet |
-| Clay Soil | Rice, Wheat |
-| Alluvial Soil | Sugarcane, Vegetables |
+**Backend:**
+- Python
+- Flask
 
----
+**Machine Learning:**
+- TensorFlow
+- Keras
+- NumPy
 
-# 🔮 Future Improvements
-
-- Live soil analysis
-- Weather integration
-- Fertilizer recommendation
-- PDF report generation
-- Mobile application
+**Frontend:**
+- HTML5
+- CSS3
+- JavaScript
 
 ---
 
-# 👨‍💻 Author
+## 📂 Project Structure
 
-Abinash Naik  
-BCA Student | AI & Web Development Enthusiast
-
-GitHub:
-https://github.com/abinash8280
-
----
-
-# 📜 License
-
-This project is licensed under the MIT License.
+```bash
+SoilDetection/
+│
+├── app.py                 # Main Flask application
+├── requirements.txt       # Python dependencies
+├── README.md              # Project documentation
+├── LICENSE
+├── .gitignore
+│
+├── static/                # CSS, JS, images
+├── templates/             # HTML templates
+├── model/                 # Trained CNN model
+└── uploads/               # Uploaded images
