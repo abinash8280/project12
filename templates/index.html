@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Soil Classifier</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* 🌿 BACKGROUND */
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            
+            background:
+linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+url("{{ url_for('static', filename='photo4.jpg') }}");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            position: relative;
+            overflow: hidden;
+
+            animation: zoomBg 15s ease-in-out infinite alternate;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background:
+            radial-gradient(circle at top right,
+            rgba(34,197,94,0.18),
+            transparent 40%),
+
+            radial-gradient(circle at bottom left,
+            rgba(255,255,255,0.08),
+            transparent 40%),
+
+            rgba(0,0,0,0.45);
+
+            backdrop-filter: blur(3px);
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+
+            width: 420px;
+            padding: 30px;
+            border-radius: 18px;
+
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            border: 1px solid rgba(255, 255, 255, 0.25);
+
+            text-align: center;
+            color: white;
+
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+
+            transition: 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.10);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        input[type="file"]::file-selector-button {
+            background: #22c55e;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* 🖼 IMAGE PREVIEW */
+        #previewBox {
+            display: none;
+            margin-bottom: 20px;
+
+            animation: fadeIn 0.6s ease;
+        }
+
+        #previewImage {
+            width: 100%;
+            max-height: 260px;
+            object-fit: cover;
+
+            border-radius: 12px;
+
+            border: 2px solid rgba(255,255,255,0.2);
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+
+            background: linear-gradient(45deg, #064e3b, #22c55e);
+            color: white;
+
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #052e16, #16a34a);
+        }
+
+        .footer {
+            margin-top: 15px;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zoomBg {
+
+            from{
+                transform: scale(1);
+            }
+
+            to{
+                transform: scale(1.08);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🌱 Soil Classifier</h1>
+
+    <p>
+        Upload soil image to detect soil type & get crop recommendation
+    </p>
+
+    <!-- 📤 IMAGE UPLOAD -->
+    <form action="/predict" method="post" enctype="multipart/form-data">
+
+        <!-- FILE INPUT -->
+        <input
+            type="file"
+            name="image"
+            id="imageInput"
+            accept="image/*"
+            required
+        >
+
+        <!-- 🖼 IMAGE PREVIEW -->
+        <div id="previewBox">
+
+            <img id="previewImage" src="">
+
+        </div>
+
+        <!-- PREDICT BUTTON -->
+        <button type="submit">
+            🌾 Predict Soil Type
+        </button>
+
+    </form>
+
+    <div class="footer">
+        🌿 Smart Agriculture System
+    </div>
+
+</div>
+
+<!-- ✅ JAVASCRIPT IMAGE PREVIEW -->
+<script>
+
+const imageInput = document.getElementById("imageInput");
+
+const previewBox = document.getElementById("previewBox");
+
+const previewImage = document.getElementById("previewImage");
+
+imageInput.addEventListener("change", function(){
+
+    const file = this.files[0];
+
+    if(file){
+
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+
+            previewImage.src = e.target.result;
+
+            previewBox.style.display = "block";
+
+            /* smooth scroll to image preview */
+            previewBox.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+        reader.readAsDataURL(file);
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+
+body {
+    font-family: Arial;
+    background: linear-gradient(to right, #14532d, #22c55e);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin-top: 80px;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+input[type="file"] {
+    padding: 10px;
+    background: white;
+    color: black;
+}
+
+button, .btn {
+    padding: 10px 20px;
+    background: white;
+    color: green;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+button:hover, .btn:hover {
+    background: #f0f0f0;
+}
+
+.result {
+    font-size: 30px;
+    color: yellow;
+}
+
+.card {
+    background: rgba(255,255,255,0.2);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+}
